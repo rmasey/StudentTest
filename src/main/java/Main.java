@@ -24,10 +24,10 @@ public class Main {
     public static void main(String[] args) {
         openDatabase("test.db");
 
-//        insertWeight(15, "dooley"); //testing
-//        listUsers();
-//        deleteUser(5);
-        sendEmail();
+//      insertWeight(15, "dooley"); //testing
+//      listUsers();
+//      deleteUser(5);
+        updateUser();
 
         closeDatabase();
     }
@@ -54,7 +54,7 @@ public class Main {
         }
     }
 
-    public static void insertWeight(int userID, String username) {
+    public static void insertUser(int userID, String username) {
         try {
             PreparedStatement ps = db.prepareStatement("INSERT INTO Users (UserID, Username) VALUES (?, ?)");
 
@@ -99,6 +99,32 @@ public class Main {
             System.out.println(e.getMessage());
 
         }
+
+    }
+
+    public static void updateUser() {
+        //test of rollback with first statement that can be done
+       //second statement cannot be done - violation of Unique constraint
+        //won't work now as I deleted Total field from database but with a Total field all good
+
+        try {
+            Main.db.setAutoCommit(false); //transaction block start
+
+            PreparedStatement ps2 = Main.db.prepareStatement("UPDATE Users SET Total = 100 WHERE UserID = 8");
+            ps2.executeUpdate(); //
+
+            PreparedStatement ps = Main.db.prepareStatement("UPDATE Users SET Username = ? WHERE UserID = ?");
+            ps.setString(1, "beans");
+            ps.setInt(2, 8);
+            ps.executeUpdate(); //Error, rollback, including the first insert statement.
+
+            Main.db.commit(); //transaction block end
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+
+        }
+
 
     }
 
@@ -162,7 +188,6 @@ public class Main {
             throw new RuntimeException(e);
         }
     }
-
 
 
 }

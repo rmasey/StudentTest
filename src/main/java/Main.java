@@ -27,7 +27,7 @@ public class Main {
 //      insertWeight(15, "dooley"); //testing
 //      listUsers();
 //      deleteUser(5);
-        updateUser();
+        updateUser();  //this doesn't work as I delete a column in the table
 
         closeDatabase();
     }

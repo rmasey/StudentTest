@@ -24,7 +24,7 @@ public class Main {
     public static void main(String[] args) {
         openDatabase("test.db");
 
-        insertWeight(15, "dooley"); //testing
+        insertUser(15, "dooley"); //testing
         listUsers();
         deleteUser(5);
         updateUser();  //this doesn't work as I deleted a column in the table

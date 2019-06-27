@@ -24,10 +24,10 @@ public class Main {
     public static void main(String[] args) {
         openDatabase("test.db");
 
-//      insertWeight(15, "dooley"); //testing
-//      listUsers();
-//      deleteUser(5);
-        updateUser();  //this doesn't work as I delete a column in the table
+        insertWeight(15, "dooley"); //testing
+        listUsers();
+        deleteUser(5);
+        updateUser();  //this doesn't work as I deleted a column in the table
 
         closeDatabase();
     }
@@ -104,7 +104,7 @@ public class Main {
 
     public static void updateUser() {
         //test of rollback with first statement that can be done
-       //second statement cannot be done - violation of Unique constraint
+        //second statement cannot be done - violation of Unique constraint
         //won't work now as I deleted Total field from database but with a Total field all good
 
         try {
